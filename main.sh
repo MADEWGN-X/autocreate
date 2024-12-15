@@ -1,52 +1,31 @@
 #!/bin/bash
 
-# Daftar proxy Anda
-PROXIES=(
-    "198.23.239.134:6540:hpxootxe:htffb8pntxgd"
-    "207.244.217.165:6712:hpxootxe:htffb8pntxgd"
-    "107.172.163.27:6543:hpxootxe:htffb8pntxgd"
-    "64.137.42.112:5157:hpxootxe:htffb8pntxgd"
-    "173.211.0.148:6641:hpxootxe:htffb8pntxgd"
-    "161.123.152.115:6360:hpxootxe:htffb8pntxgd"
-    "167.160.180.203:6754:hpxootxe:htffb8pntxgd"
-    "154.36.110.199:6853:hpxootxe:htffb8pntxgd"
-    "173.0.9.70:5653:hpxootxe:htffb8pntxgd"
-    "173.0.9.209:5792:hpxootxe:htffb8pntxgd"
-    "198.23.239.134:6540:gfaqzmmt:o3dydv32stoo"
-    "207.244.217.165:6712:gfaqzmmt:o3dydv32stoo"
-    "107.172.163.27:6543:gfaqzmmt:o3dydv32stoo"
-    "64.137.42.112:5157:gfaqzmmt:o3dydv32stoo"
-    "173.211.0.148:6641:gfaqzmmt:o3dydv32stoo"
-    "161.123.152.115:6360:gfaqzmmt:o3dydv32stoo"
-    "167.160.180.203:6754:gfaqzmmt:o3dydv32stoo"
-    "154.36.110.199:6853:gfaqzmmt:o3dydv32stoo"
-    "173.0.9.70:5653:gfaqzmmt:o3dydv32stoo"
-    "173.0.9.209:5792:gfaqzmmt:o3dydv32stoo"
-)
+# Path ke file proxy
+PROXY_FILE="proxy.txt"
 
-# Loop sebanyak jumlah proxy
-for PROXY in "${PROXIES[@]}"; do
-    # Pecahkan proxy menjadi bagian-bagian
-    IP=$(echo $PROXY | cut -d':' -f1)
-    PORT=$(echo $PROXY | cut -d':' -f2)
-    USERNAME=$(echo $PROXY | cut -d':' -f3)
-    PASSWORD=$(echo $PROXY | cut -d':' -f4)
+# Periksa apakah file proxy ada
+if [[ ! -f "$PROXY_FILE" ]]; then
+    echo "File $PROXY_FILE tidak ditemukan!"
+    exit 1
+fi
 
-    # Tampilkan proxy yang digunakan
-    echo "Menggunakan proxy: $IP:$PORT"
+# Loop melalui setiap proxy di file
+while IFS= read -r PROXY; do
+    # Tampilkan proxy yang sedang digunakan
+    echo "Menggunakan proxy: $PROXY"
 
     # Atur proxy untuk skrip PHP
-    export http_proxy="http://$USERNAME:$PASSWORD@$IP:$PORT"
-    export https_proxy="http://$USERNAME:$PASSWORD@$IP:$PORT"
+    export http_proxy="http://$PROXY"
+    export https_proxy="http://$PROXY"
 
     # Jalankan skrip PHP
     php run.php
 
-    # Hapus pengaturan proxy (opsional, untuk menghindari konflik di iterasi berikutnya)
+    # Hapus pengaturan proxy (opsional)
     unset http_proxy
     unset https_proxy
 
     # Beri jeda waktu (opsional)
     sleep 5
-done
+done < "$PROXY_FILE"
 
