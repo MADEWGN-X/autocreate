@@ -12,6 +12,16 @@ PROXIES=(
     "154.36.110.199:6853:hpxootxe:htffb8pntxgd"
     "173.0.9.70:5653:hpxootxe:htffb8pntxgd"
     "173.0.9.209:5792:hpxootxe:htffb8pntxgd"
+    "198.23.239.134:6540:gfaqzmmt:o3dydv32stoo"
+    "207.244.217.165:6712:gfaqzmmt:o3dydv32stoo"
+    "107.172.163.27:6543:gfaqzmmt:o3dydv32stoo"
+    "64.137.42.112:5157:gfaqzmmt:o3dydv32stoo"
+    "173.211.0.148:6641:gfaqzmmt:o3dydv32stoo"
+    "161.123.152.115:6360:gfaqzmmt:o3dydv32stoo"
+    "167.160.180.203:6754:gfaqzmmt:o3dydv32stoo"
+    "154.36.110.199:6853:gfaqzmmt:o3dydv32stoo"
+    "173.0.9.70:5653:gfaqzmmt:o3dydv32stoo"
+    "173.0.9.209:5792:gfaqzmmt:o3dydv32stoo"
 )
 
 # Loop sebanyak jumlah proxy
